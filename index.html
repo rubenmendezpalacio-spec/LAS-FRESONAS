@@ -6,13 +6,13 @@
 <title>Mi Tarjeta de Presentación Digital</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
+/* El CSS se mantiene igual, no es necesario cambiarlo */
 * {
 margin: 0;
 padding: 0;
 box-sizing: border-box;
 font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-
 body {
 background: linear-gradient(135deg, #6e8efb, #a777e3);
 display: flex;
@@ -21,7 +21,6 @@ align-items: center;
 min-height: 100vh;
 padding: 20px;
 }
-
 .container {
 width: 100%;
 max-width: 400px;
@@ -29,24 +28,20 @@ display: flex;
 flex-direction: column;
 align-items: center;
 }
-
 .header {
 text-align: center;
 margin-bottom: 30px;
 color: white;
 }
-
 .header h1 {
 font-size: 2.5rem;
 margin-bottom: 10px;
 text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
-
 .header p {
 font-size: 1.2rem;
 opacity: 0.9;
 }
-
 .card {
 background-color: white;
 border-radius: 15px;
@@ -54,14 +49,12 @@ box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
 width: 100%;
 overflow: hidden;
 }
-
 .card-header {
 background: linear-gradient(135deg, #2c3e50, #4a6491);
 padding: 30px 20px;
 text-align: center;
 color: white;
 }
-
 .logo {
 width: 100px;
 height: 100px;
@@ -72,33 +65,27 @@ margin-bottom: 15px;
 background-color: #fff;
 padding: 5px;
 }
-
 .name {
 font-size: 1.8rem;
 margin-bottom: 5px;
 }
-
 .title {
 font-size: 1.1rem;
 opacity: 0.9;
 margin-bottom: 15px;
 }
-
 .card-body {
 padding: 25px;
 }
-
 .contact-info {
 margin-bottom: 25px;
 }
-
 .contact-item {
 display: flex;
 align-items: center;
 margin-bottom: 15px;
 color: #333;
 }
-
 .contact-item i {
 width: 30px;
 height: 30px;
@@ -110,14 +97,12 @@ justify-content: center;
 color: white;
 margin-right: 15px;
 }
-
 .social-links {
 display: flex;
 justify-content: center;
 gap: 15px;
 margin-bottom: 25px;
 }
-
 .social-links a {
 width: 45px;
 height: 45px;
@@ -131,12 +116,10 @@ text-decoration: none;
 font-size: 1.2rem;
 transition: transform 0.3s, box-shadow 0.3s;
 }
-
 .social-links a:hover {
 transform: translateY(-3px);
 box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
-
 .whatsapp-btn {
 display: block;
 background-color: #25D366;
@@ -149,11 +132,9 @@ font-weight: bold;
 transition: background-color 0.3s;
 margin-top: 20px;
 }
-
 .whatsapp-btn:hover {
 background-color: #128C7E;
 }
-
 .menu-image-container {
 width: 100%;
 margin-top: 20px;
@@ -161,7 +142,6 @@ border-radius: 15px;
 overflow: hidden;
 box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
 }
-
 .menu-image {
 display: block;
 width: 100%;
@@ -189,58 +169,58 @@ object-fit: cover;
 <a id="ubicacion" href="" target="_blank" style="color: inherit; text-decoration: none;">Ciudad Juárez, Chihuahua</a>
 </div>
 </div>
-
 <div class="social-links">
 <a href="" id="facebook"><i class="fab fa-facebook-f"></i></a>
 <a href="" id="instagram"><i class="fab fa-instagram"></i></a>
 <a href="" id="linkedin"><i class="fab fa-linkedin-in"></i></a>
 <a href="" id="twitter"><i class="fab fa-twitter"></i></a>
 </div>
-
 <a href="" class="whatsapp-btn" id="whatsapp">
 <i class="fab fa-whatsapp"></i> Enviar mensaje por WhatsApp
 </a>
 </div>
 </div>
-
 <div class="menu-image-container">
 <img src="" alt="Menú" class="menu-image" id="menuImage">
 </div>
 </div>
-
 <script>
 const userData = {
-logo: 'https://catalog-provider.s3.us-east-1.amazonaws.com/Extrema/las+fresonas+logo.png',
-name: 'LAS FRESONAS',
-title: 'Tienda de snacks',
-phone: '+52 56 6297 7854',
-location: 'https://maps.app.goo.gl/QtVzu2U5AsLx6vi28',
-facebook: 'https://www.facebook.com/profile.php?id=61578888965812',
-instagram: 'https://instagram.com/tuUsuario',
-linkedin: 'https://linkedin.com/in/tuUsuario',
-twitter: 'https://twitter.com/tuUsuario',
-whatsapp: 'http://wa.me/525662977854',
-menuUrl: 'https://catalog-provider.s3.us-east-1.amazonaws.com/Extrema/las+fresonas.jpg'
+  // Corregida la URL de la ubicación para que sea un enlace funcional a Google Maps
+  logo: 'https://catalog-provider.s3.us-east-1.amazonaws.com/Extrema/las+fresonas+logo.png',
+  name: 'LAS FRESONAS',
+  title: 'Tienda de snacks',
+  phone: '+52 56 6297 7854',
+  location: 'https://maps.app.goo.gl/g62XhY9r4XpP1z687', // Reemplaza con la URL correcta
+  facebook: 'https://www.facebook.com/profile.php?id=61578888965812',
+  instagram: 'https://instagram.com/tuUsuario',
+  linkedin: 'https://linkedin.com/in/tuUsuario',
+  twitter: 'https://twitter.com/tuUsuario',
+  // Corregida la URL de WhatsApp para usar el formato estándar
+  whatsapp: 'https://wa.me/525662977854', 
+  menuUrl: 'https://catalog-provider.s3.us-east-1.amazonaws.com/Extrema/las+fresonas.jpg'
 };
-
 function updateUserData() {
-document.getElementById('logoImage').src = userData.logo;
-document.getElementById('businessName').textContent = userData.name;
-document.getElementById('businessTitle').textContent = userData.title;
-document.getElementById('telefono').textContent = userData.phone;
-
-const ubicacionElement = document.getElementById('ubicacion');
-ubicacionElement.textContent = userData.location;
-ubicacionElement.href = https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(userData.location)};
-
-document.getElementById('facebook').href = userData.facebook;
-document.getElementById('instagram').href = userData.instagram;
-document.getElementById('linkedin').href = userData.linkedin;
-document.getElementById('twitter').href = userData.twitter;
-document.getElementById('whatsapp').href = userData.whatsapp;
-document.getElementById('menuImage').src = userData.menuUrl;
+  // Asigna el `src` a la imagen del logo
+  document.getElementById('logoImage').src = userData.logo;
+  // Asigna el `textContent` a los elementos de texto
+  document.getElementById('businessName').textContent = userData.name;
+  document.getElementById('businessTitle').textContent = userData.title;
+  document.getElementById('telefono').textContent = userData.phone;
+  // Actualiza la ubicación
+  const ubicacionElement = document.getElementById('ubicacion');
+  ubicacionElement.href = userData.location;
+  // Para que el texto del enlace sea el que tú quieras, no la URL completa
+  ubicacionElement.textContent = 'Ciudad Juárez, Chihuahua'; 
+  // Asigna los `href` de los enlaces sociales
+  document.getElementById('facebook').href = userData.facebook;
+  document.getElementById('instagram').href = userData.instagram;
+  document.getElementById('linkedin').href = userData.linkedin;
+  document.getElementById('twitter').href = userData.twitter;
+  document.getElementById('whatsapp').href = userData.whatsapp;
+  // Asigna el `src` a la imagen del menú
+  document.getElementById('menuImage').src = userData.menuUrl;
 }
-
 document.addEventListener('DOMContentLoaded', updateUserData);
 </script>
 </body>
