@@ -210,7 +210,7 @@ object-fit: cover;
 
 <script>
 const userData = {
-logo: 'TU_URL_DEL_LOGO',
+logo: 'https://drive.google.com/file/d/1Fv9e5OL54fE8M82pGLT5zxZyyTvWw8Eq/view?usp=sharing',
 name: 'LAS FRESONAS',
 title: 'Tienda de snacks',
 phone: '+52 56 6297 7854',
@@ -220,7 +220,7 @@ instagram: 'https://instagram.com/tuUsuario',
 linkedin: 'https://linkedin.com/in/tuUsuario',
 twitter: 'https://twitter.com/tuUsuario',
 whatsapp: 'http://wa.me/525662977854',
-menuUrl: 'TU_URL_DEL_MENU'
+menuUrl: 'https://drive.google.com/file/d/1VrxbQ9Afwzxu4ySd70beyvK7dA-xzZI0/view?usp=sharing'
 };
 
 function updateUserData() {
