@@ -6,147 +6,147 @@
 <title>Mi Tarjeta de Presentación Digital</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
-/* El CSS se mantiene igual, no necesita cambios */
+/* El CSS se mantiene igual */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 body {
-    background: linear-gradient(135deg, #6e8efb, #a777e3);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    padding: 20px;
+    background: linear-gradient(135deg, #6e8efb, #a777e3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
 }
 .container {
-    width: 100%;
-    max-width: 400px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 .header {
-    text-align: center;
-    margin-bottom: 30px;
-    color: white;
+    text-align: center;
+    margin-bottom: 30px;
+    color: white;
 }
 .header h1 {
-    font-size: 2.5rem;
-    margin-bottom: 10px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 .header p {
-    font-size: 1.2rem;
-    opacity: 0.9;
+    font-size: 1.2rem;
+    opacity: 0.9;
 }
 .card {
-    background-color: white;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-    width: 100%;
-    overflow: hidden;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    overflow: hidden;
 }
 .card-header {
-    background: linear-gradient(135deg, #2c3e50, #4a6491);
-    padding: 30px 20px;
-    text-align: center;
-    color: white;
+    background: linear-gradient(135deg, #2c3e50, #4a6491);
+    padding: 30px 20px;
+    text-align: center;
+    color: white;
 }
 .logo {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 4px solid white;
-    margin-bottom: 15px;
-    background-color: #fff;
-    padding: 5px;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid white;
+    margin-bottom: 15px;
+    background-color: #fff;
+    padding: 5px;
 }
 .name {
-    font-size: 1.8rem;
-    margin-bottom: 5px;
+    font-size: 1.8rem;
+    margin-bottom: 5px;
 }
 .title {
-    font-size: 1.1rem;
-    opacity: 0.9;
-    margin-bottom: 15px;
+    font-size: 1.1rem;
+    opacity: 0.9;
+    margin-bottom: 15px;
 }
 .card-body {
-    padding: 25px;
+    padding: 25px;
 }
 .contact-info {
-    margin-bottom: 25px;
+    margin-bottom: 25px;
 }
 .contact-item {
-    display: flex;
-    align-items: center;
-    margin-bottom: 15px;
-    color: #333;
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    color: #333;
 }
 .contact-item i {
-    width: 30px;
-    height: 30px;
-    background: linear-gradient(135deg, #6e8efb, #a777e3);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    margin-right: 15px;
+    width: 30px;
+    height: 30px;
+    background: linear-gradient(135deg, #6e8efb, #a777e3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    margin-right: 15px;
 }
 .social-links {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-bottom: 25px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 25px;
 }
 .social-links a {
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #6e8efb, #a777e3);
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    font-size: 1.2rem;
-    transition: transform 0.3s, box-shadow 0.3s;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #6e8efb, #a777e3);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 1.2rem;
+    transition: transform 0.3s, box-shadow 0.3s;
 }
 .social-links a:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 .whatsapp-btn {
-    display: block;
-    background-color: #25D366;
-    color: white;
-    text-align: center;
-    padding: 12px;
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: bold;
-    transition: background-color 0.3s;
-    margin-top: 20px;
+    display: block;
+    background-color: #25D366;
+    color: white;
+    text-align: center;
+    padding: 12px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    margin-top: 20px;
 }
 .whatsapp-btn:hover {
-    background-color: #128C7E;
+    background-color: #128C7E;
 }
 .menu-image-container {
-    width: 100%;
-    margin-top: 20px;
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    margin-top: 20px;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
 }
 .menu-image {
-    display: block;
-    width: 100%;
-    height: auto;
-    object-fit: cover;
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
 }
 </style>
 </head>
@@ -186,37 +186,37 @@ body {
 </div>
 <script>
 const userData = {
-  logo: 'https://catalog-provider.s3.us-east-1.amazonaws.com/Extrema/las+fresonas+logo.png',
-  name: 'LAS FRESONAS',
-  title: 'Tienda de snacks',
-  phone: '+52 56 6297 7854',
-  location: 'https://maps.app.goo.gl/QtVzu2U5AsLx6vi28', // ***CAMBIA ESTA URL POR LA DE TU NEGOCIO***
-  locationText: 'Ciudad Juárez, Chihuahua',
-  facebook: 'https://www.facebook.com/profile.php?id=61578888965812',
-  instagram: 'https://instagram.com/tuUsuario',
-  linkedin: 'https://linkedin.com/in/tuUsuario',
-  twitter: 'https://twitter.com/tuUsuario',
-  whatsapp: 'https://wa.me/525662977854',
-  menuUrl: 'https://catalog-provider.s3.us-east-1.amazonaws.com/Extrema/las+fresonas.jpg'
+  logo: 'https://catalog-provider.s3.us-east-1.amazonaws.com/Extrema/las+fresonas+logo.png',
+  name: 'LAS FRESONAS',
+  title: 'Tienda de snacks',
+  phone: '+52 56 6297 7854',
+  location: 'https://maps.app.goo.gl/4NyH7xJ3yyPY24uAA',
+  locationText: 'Ciudad Juárez, Chihuahua',
+  facebook: 'https://www.facebook.com/profile.php?id=61578888965812',
+  instagram: 'https://instagram.com/tuUsuario',
+  linkedin: 'https://linkedin.com/in/tuUsuario',
+  twitter: 'https://twitter.com/tuUsuario',
+  whatsapp: 'https://wa.me/525662977854',
+  menuUrl: 'https://catalog-provider.s3.us-east-1.amazonaws.com/Extrema/las+fresonas.jpg'
 };
 function updateUserData() {
-  document.getElementById('logoImage').src = userData.logo;
-  document.getElementById('businessName').textContent = userData.name;
-  document.getElementById('businessTitle').textContent = userData.title;
-  document.getElementById('telefono').textContent = userData.phone;
-  // Ubicación
-  const ubicacionElement = document.getElementById('ubicacion');
-  ubicacionElement.href = userData.location;
-  ubicacionElement.textContent = userData.locationText;
-  // Redes sociales
-  document.getElementById('facebook').href = userData.facebook;
-  document.getElementById('instagram').href = userData.instagram;
-  document.getElementById('linkedin').href = userData.linkedin;
-  document.getElementById('twitter').href = userData.twitter;
-  // WhatsApp
-  document.getElementById('whatsapp').href = userData.whatsapp;
-  // Menú
-  document.getElementById('menuImage').src = userData.menuUrl;
+  document.getElementById('logoImage').src = userData.logo;
+  document.getElementById('businessName').textContent = userData.name;
+  document.getElementById('businessTitle').textContent = userData.title;
+  document.getElementById('telefono').textContent = userData.phone;
+  // Ubicación
+  const ubicacionElement = document.getElementById('ubicacion');
+  ubicacionElement.href = userData.location;
+  ubicacionElement.textContent = userData.locationText;
+  // Redes sociales
+  document.getElementById('facebook').href = userData.facebook;
+  document.getElementById('instagram').href = userData.instagram;
+  document.getElementById('linkedin').href = userData.linkedin;
+  document.getElementById('twitter').href = userData.twitter;
+  // WhatsApp
+  document.getElementById('whatsapp').href = userData.whatsapp;
+  // Menú
+  document.getElementById('menuImage').src = userData.menuUrl;
 }
 document.addEventListener('DOMContentLoaded', updateUserData);
 </script>
