@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Tarjeta de Presentación Digital</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 900px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            color: white;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            width: 100%;
+            max-width: 400px;
+            overflow: hidden;
+        }
+        
+        .card-header {
+            background: linear-gradient(135deg, #2c3e50, #4a6491);
+            padding: 30px 20px;
+            text-align: center;
+            color: white;
+        }
+        
+        .logo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid white;
+            margin-bottom: 15px;
+            background-color: #fff;
+            padding: 5px;
+        }
+        
+        .name {
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+        }
+        
+        .title {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 15px;
+        }
+        
+        .card-body {
+            padding: 25px;
+        }
+        
+        .contact-info {
+            margin-bottom: 25px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        
+        .contact-item i {
+            width: 30px;
+            height: 30px;
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            margin-right: 15px;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .social-links a {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .social-links a:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .whatsapp-btn {
+            display: block;
+            background-color: #25D366;
+            color: white;
+            text-align: center;
+            padding: 12px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+        }
+        
+        .whatsapp-btn:hover {
+            background-color: #128C7E;
+        }
+        
+        .instructions {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            padding: 25px;
+            margin-top: 30px;
+            width: 100%;
+            max-width: 400px;
+        }
+        
+        .instructions h2 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .instructions ol {
+            padding-left: 20px;
+        }
+        
+        .instructions li {
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        @media (min-width: 768px) {
+            .container {
+                flex-direction: row;
+                justify-content: center;
+                gap: 30px;
+                align-items: flex-start;
+            }
+            
+            .instructions {
+                margin-top: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <img src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png" alt="Logo" class="logo">
+                <h1 class="name">LAS FRESONAS</h1>
+                <p class="title">Tienda de snacks</p>
+            </div>
+            <div class="card-body">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <span id="telefono">+52 56 6297 7854</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span id="ubicacion">Ciudad Juárez, Chihuahua</span>
+                    </div>
+                </div>
+                
+                <div class="social-links">
+                    <a href="https://www.facebook.com/search/top?q=las%20fresonas" id="facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://instagram.com/tuUsuario" id="instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://linkedin.com/in/tuUsuario" id="linkedin"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://twitter.com/tuUsuario" id="twitter"><i class="fab fa-twitter"></i></a>
+                </div>
+                
+                <a href="http://wa.me/525662977854" class="whatsapp-btn" id="whatsapp">
+                    <i class="fab fa-whatsapp"></i> Enviar mensaje por WhatsApp
+                </a>
+            </div>
+        </div>
+        
+        <div class="instructions">
+            <h2>Instrucciones</h2>
+            <ol>
+                <li>Reemplaza la información de ejemplo con tus datos</li>
+                <li>Sube este archivo a GitHub con el nombre "index.html"</li>
+                <li>Activa GitHub Pages en la configuración de tu repositorio</li>
+                <li>Tu tarjeta estará disponible en: https://tucusuario.github.io/turepositorio</li>
+                <li>Configura tu código QR para que apunte a esa URL</li>
+            </ol>
+        </div>
+    </div>
+
+    <script>
+        // Reemplaza estos valores con tu información real
+        const userData = {
+            logo: 'https://1drv.ms/i/c/2ebd0aee1eb933b6/EQ8WvKdApdtKm8Ll3krTclIByrraX67b_OMBa-kZzKDrrg?e=pyuZSb', // URL de tu logo
+            name: 'LAS FRESONAS',
+            title: 'Tienda de snacks',
+            phone: '+52 56 6297 7854',
+            location: 'Ciudad Juárez, Chihuahua',
+            facebook: 'https://www.facebook.com/search/top?q=las%20fresonas',
+            instagram: 'https://instagram.com/tuUsuario',
+            linkedin: 'https://linkedin.com/in/tuUsuario',
+            twitter: 'https://twitter.com/tuUsuario',
+            whatsapp: 'http://wa.me/525662977854' // Reemplaza 1234567890 con tu número (código de país incluido, sin +)
+        };
+
+        // Función para actualizar los datos en la página
+        function updateUserData() {
+            document.querySelector('.logo').src = userData.logo;
+            document.querySelector('.name').textContent = userData.name;
+            document.querySelector('.title').textContent = userData.title;
+            document.getElementById('telefono').textContent = userData.phone;
+            document.getElementById('ubicacion').textContent = userData.location;
+            
+            document.getElementById('facebook').href = userData.facebook;
+            document.getElementById('instagram').href = userData.instagram;
+            document.getElementById('linkedin').href = userData.linkedin;
+            document.getElementById('twitter').href = userData.twitter;
+            
+            document.getElementById('whatsapp').href = userData.whatsapp;
+        }
+
+        // Actualizar los datos cuando la página cargue
+        document.addEventListener('DOMContentLoaded', updateUserData);
+    </script>
+</body>
+</html>
