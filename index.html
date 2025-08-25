@@ -589,24 +589,22 @@
                 localStorage.setItem('lastFolio', lastFolio + 1);
 
                 // Guardar cada producto del carrito en el historial
-                const history = JSON.parse(localStorage.getItem('orderHistory')) || [];
-                const now = new Date();
-                const dateTime = now.toLocaleString('es-MX', { dateStyle: 'short', timeStyle: 'short' });
+         // NUEVO CÓDIGO PARA GUARDAR EN FIRESTORE
+const historyCollection = collection(db, "orderHistory");
+const now = new Date();
+const dateTime = now.toLocaleString('es-MX', { dateStyle: 'short', timeStyle: 'short' });
 
-                cart.forEach(product => {
-                    history.push({
-                        id: product.id,
-                        folio: newFolio,
-                        date: dateTime,
-                        productType: product.type,
-                        complement: product.complement,
-                        topping: product.topping,
-                        whippedCream: product.whippedCream,
-                        quantity: 1
-                    });
-                });
-
-                localStorage.setItem('orderHistory', JSON.stringify(history));
+for (const product of cart) {
+    await addDoc(historyCollection, {
+        folio: newFolio,
+        date: dateTime,
+        productType: product.type,
+        complement: product.complement,
+        topping: product.topping,
+        whippedCream: product.whippedCream,
+        quantity: 1
+    });
+}
 
                 confirmationMessage.style.display = 'block';
                 confirmOrderBtn.style.display = 'none';
