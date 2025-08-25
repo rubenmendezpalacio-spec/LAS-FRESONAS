@@ -751,8 +751,10 @@ for (const product of cart) {
             // Cargar y mostrar historial de localStorage
             function loadHistory() {
                 historyList.innerHTML = '';
-                const history = JSON.parse(localStorage.getItem('orderHistory')) || [];
-
+              // NUEVO CÓDIGO PARA LEER DE FIRESTORE
+const historyCollection = collection(db, "orderHistory");
+const historyDocs = await getDocs(historyCollection);
+const history = historyDocs.docs.map(doc => ({ id: doc.id, ...doc.data() }));
                 if (history.length === 0) {
                     const emptyItem = document.createElement('div');
                     emptyItem.className = 'empty-order';
