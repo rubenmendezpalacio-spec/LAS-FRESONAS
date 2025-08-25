@@ -33,24 +33,24 @@
         header {
             background-color: #ffc3a0;
             background-image: url("https://catalog-provider.s3.us-east-1.amazonaws.com/Extrema/las+fresonas+logo.png");
-            background-size: contain; /* Cambiado a 'contain' para que el logo se ajuste dentro del header */
+            background-size: contain;
             background-position: center;
             background-repeat: no-repeat;
             color: #ff4b8b;
-            padding: 15px; /* Reduje el padding */
+            padding: 15px;
             text-align: center;
-            min-height: 100px; /* Ajusta la altura mínima según necesites */
-            max-height: 180px; /* Añadida altura máxima para evitar que crezca demasiado */
+            min-height: 100px;
+            max-height: 180px;
             position: relative;
-            display: flex; /* Para centrar el h1 */
-            justify-content: center; /* Centra horizontalmente */
-            align-items: center; /* Centra verticalmente */
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         header h1 {
-            color: transparent; /* Hace el texto transparente */
-            font-size: 0; /* Reduce el tamaño del texto a cero */
-            position: absolute; /* Lo saca del flujo normal para no afectar el layout */
+            color: transparent;
+            font-size: 0;
+            position: absolute;
             width: 100%;
             height: 100%;
         }
@@ -434,22 +434,6 @@
             </div>
 
             <div class="form-group">
-                <label for="customer-name">Nombre del Cliente:</label>
-                <select id="customer-name">
-                    <option value="">Selecciona un cliente</option>
-                    <option value="cliente1">Cliente 1</option>
-                    <option value="cliente2">Cliente 2</option>
-                    <option value="cliente3">Cliente 3</option>
-                    <option value="nuevo">+ Agregar nuevo cliente</option>
-                </select>
-            </div>
-
-            <div id="new-customer" class="form-group hidden">
-                <label for="new-customer-name">Nuevo Cliente:</label>
-                <input type="text" id="new-customer-name" placeholder="Nombre del cliente">
-            </div>
-
-            <div class="form-group">
                 <label for="notes">Notas adicionales:</label>
                 <textarea id="notes" placeholder="Notas especiales para el pedido" rows="3" style="width: 100%; padding: 15px; border-radius: 12px; border: 2px solid #ffd1dc;"></textarea>
             </div>
@@ -492,9 +476,6 @@
             const clearCartBtn = document.getElementById('clear-cart');
             const continueToConfirmBtn = document.getElementById('continue-to-confirm');
             const orderSummary = document.getElementById('order-summary');
-            const customerNameSelect = document.getElementById('customer-name');
-            const newCustomerDiv = document.getElementById('new-customer');
-            const newCustomerName = document.getElementById('new-customer-name');
             const confirmOrderBtn = document.getElementById('confirm-order');
             const confirmationMessage = document.getElementById('confirmation-message');
             const newOrderBtn = document.getElementById('new-order');
@@ -526,15 +507,6 @@
                         loadHistory();
                     }
                 });
-            });
-
-            // Manejar cambio en selección de cliente
-            customerNameSelect.addEventListener('change', function() {
-                if (this.value === 'nuevo') {
-                    newCustomerDiv.classList.remove('hidden');
-                } else {
-                    newCustomerDiv.classList.add('hidden');
-                }
             });
 
             // Lógica para agregar producto al carrito
@@ -587,15 +559,8 @@
 
             // Confirmar pedido completo y guardar en historial
             confirmOrderBtn.addEventListener('click', function() {
-                let customerName = customerNameSelect.value;
-                if (customerName === 'nuevo') {
-                    customerName = newCustomerName.value.trim();
-                    if (!customerName) {
-                        alert('Por favor ingresa el nombre del nuevo cliente.');
-                        return;
-                    }
-                } else if (!customerName) {
-                    alert('Por favor selecciona un cliente.');
+                if (cart.length === 0) {
+                    alert('El carrito está vacío. Agrega al menos un producto.');
                     return;
                 }
 
@@ -637,9 +602,6 @@
             // Hacer nuevo pedido
             newOrderBtn.addEventListener('click', function() {
                 cart = [];
-                customerNameSelect.value = '';
-                newCustomerName.value = '';
-                newCustomerDiv.classList.add('hidden');
                 document.getElementById('notes').value = '';
                 confirmationMessage.style.display = 'none';
                 confirmOrderBtn.style.display = 'block';
@@ -796,7 +758,7 @@
                                 **Crema Batida:** ${item.whippedCream ? 'Sí' : 'No'}
                             </div>
                         `;
-                        historyList.prepend(historyItem); // Muestra los más recientes primero
+                        historyList.prepend(historyItem);
                     });
                     downloadCsvBtn.style.display = 'block';
                 }
@@ -820,7 +782,7 @@
                     }
                 }
             });
-            
+
             // Funciones auxiliares para obtener nombres
             function getTypeName(type) {
                 switch(type) {
