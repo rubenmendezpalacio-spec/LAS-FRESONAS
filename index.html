@@ -295,8 +295,9 @@
             font-size: 2.5rem;
             margin-bottom: 15px;
         }
-
-        .history-item {
+        
+        /* Estilos para el historial agrupado */
+        .history-group {
             border: 2px solid #ffd1dc;
             border-radius: 12px;
             padding: 15px;
@@ -305,16 +306,31 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
             position: relative;
         }
-
-        .history-date {
+        
+        .history-group-header {
             font-weight: bold;
             color: #ff4b8b;
-            margin-bottom: 5px;
+            margin-bottom: 10px;
+            border-bottom: 1px dashed #ffd1dc;
+            padding-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
-
-        .history-details {
-            font-size: 0.9rem;
+        
+        .history-product-item {
+            font-size: 0.95rem;
             color: #7a5c8d;
+            border-bottom: 1px solid #f0f0f0;
+            padding: 10px 0;
+        }
+        
+        .history-product-item:last-child {
+            border-bottom: none;
+        }
+        
+        .history-product-item strong {
+            color: #4a2442;
         }
 
         .history-item .delete-btn {
@@ -745,21 +761,53 @@
                     historyList.appendChild(emptyItem);
                     downloadCsvBtn.style.display = 'none';
                 } else {
-                    history.forEach(item => {
-                        const historyItem = document.createElement('div');
-                        historyItem.className = 'history-item';
-                        historyItem.innerHTML = `
-                            <button class="delete-btn" data-id="${item.id}"><i class="fas fa-trash"></i></button>
-                            <div class="history-date">Folio: ${item.folio} (${item.date})</div>
-                            <div class="history-details">
-                                **Producto:** ${getTypeName(item.productType)}<br>
-                                **Complemento:** ${getComplementName(item.complement) || 'Ninguno'}<br>
-                                **Topping:** ${getToppingName(item.topping) || 'Ninguno'}<br>
-                                **Crema Batida:** ${item.whippedCream ? 'Sí' : 'No'}
-                            </div>
-                        `;
-                        historyList.prepend(historyItem);
+                    // Agrupar por folio
+                    const groupedHistory = history.reduce((acc, item) => {
+                        const { folio } = item;
+                        if (!acc[folio]) {
+                            acc[folio] = {
+                                folio,
+                                date: item.date,
+                                items: []
+                            };
+                        }
+                        acc[folio].items.push(item);
+                        return acc;
+                    }, {});
+
+                    // Convertir el objeto a un array para poder ordenarlo
+                    const sortedGroups = Object.values(groupedHistory).sort((a, b) => {
+                        const folioA = parseInt(a.folio.replace('LF', ''));
+                        const folioB = parseInt(b.folio.replace('LF', ''));
+                        return folioB - folioA;
                     });
+
+                    sortedGroups.forEach(group => {
+                        const groupDiv = document.createElement('div');
+                        groupDiv.className = 'history-group';
+                        
+                        const headerDiv = document.createElement('div');
+                        headerDiv.className = 'history-group-header';
+                        headerDiv.innerHTML = `
+                            <div>Folio: <strong>${group.folio}</strong> (${group.date})</div>
+                        `;
+                        groupDiv.appendChild(headerDiv);
+                        
+                        group.items.forEach(item => {
+                            const productDiv = document.createElement('div');
+                            productDiv.className = 'history-product-item';
+                            productDiv.innerHTML = `
+                                <div><button class="delete-btn" data-id="${item.id}"><i class="fas fa-trash"></i></button></div>
+                                <div>Producto: <strong>${getTypeName(item.productType)}</strong><br>
+                                Complemento: <strong>${getComplementName(item.complement) || 'Ninguno'}</strong><br>
+                                Topping: <strong>${getToppingName(item.topping) || 'Ninguno'}</strong><br>
+                                Crema Batida: <strong>${item.whippedCream ? 'Sí' : 'No'}</strong></div>
+                            `;
+                            groupDiv.appendChild(productDiv);
+                        });
+                        historyList.appendChild(groupDiv);
+                    });
+                    
                     downloadCsvBtn.style.display = 'block';
                 }
             }
