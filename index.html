@@ -381,7 +381,6 @@
                 <label for="product-type">Tipo de Fresas con Crema:</label>
                 <select id="product-type">
                     <option value="">Selecciona un tipo</option>
-                    <option value="tradicional">Fresas con Crema Tradicionales</option>
                     <option value="congeladas">Fresas con Crema Congeladas</option>
                     <option value="naturales">Fresas con Crema Naturales</option>
                     <option value="mixtas">Fresas Mixtas (Congeladas + Naturales)</option>
@@ -547,7 +546,9 @@
 
                 cart.push(product);
                 updateCartDisplay();
-                alert('¡Producto agregado al carrito!');
+                
+                // Ya no muestra el pop-up de confirmación
+                // alert('¡Producto agregado al carrito!');
 
                 // Limpiar selecciones para el siguiente pedido
                 productTypeSelect.value = '';
@@ -834,7 +835,7 @@
             // Funciones auxiliares para obtener nombres
             function getTypeName(type) {
                 switch(type) {
-                    case 'tradicional': return 'Fresas con Crema Tradicionales';
+                    // case 'tradicional': return 'Fresas con Crema Tradicionales'; // Opción eliminada
                     case 'congeladas': return 'Fresas con Crema Congeladas';
                     case 'naturales': return 'Fresas con Crema Naturales';
                     case 'mixtas': return 'Fresas Mixtas (Congeladas + Naturales)';
