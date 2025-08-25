@@ -749,7 +749,7 @@ for (const product of cart) {
             }
 
             // Cargar y mostrar historial de localStorage
-            function loadHistory() {
+          async  function loadHistory() {
                 historyList.innerHTML = '';
               // NUEVO CÓDIGO PARA LEER DE FIRESTORE
 const historyCollection = collection(db, "orderHistory");
