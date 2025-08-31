@@ -183,6 +183,17 @@
             border-left: 5px solid #ff4b8b;
             box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
             position: relative;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .order-item img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 1px solid #ffafbd;
         }
 
         .order-header {
@@ -271,7 +282,7 @@
 
         .summary-item {
             display: flex;
-            flex-wrap: wrap; /* Añadido para evitar el empalme */
+            flex-wrap: wrap; 
             justify-content: space-between;
             margin-bottom: 10px;
             padding-bottom: 10px;
@@ -302,17 +313,37 @@
             margin-bottom: 15px;
         }
         
-        /* Estilos para el historial agrupado */
-        .history-group {
+        /* Estilos para el historial agrupado y confirmar */
+        #confirm-summary-box, .history-group {
             border: 2px solid #ffd1dc;
             border-radius: 12px;
             padding: 15px;
             margin-bottom: 15px;
             background: #fff;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-            position: relative;
         }
-        
+        #confirm-summary-box .history-product-item, .history-group .history-product-item {
+            padding-right: 0;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        #confirm-summary-box .history-product-item:last-of-type, .history-group .history-product-item:last-of-type {
+            border-bottom: none;
+        }
+        #confirm-summary-box .total-price, .history-group .total-price {
+            font-weight: bold;
+            font-size: 1.2rem;
+            text-align: right;
+            margin-top: 15px;
+            padding-top: 10px;
+            border-top: 2px solid #ffd1dc;
+        }
+        #confirm-summary-box .total-price span, .history-group .total-price span {
+            color: #ff4b8b;
+        }
+
         .history-group-header {
             font-weight: bold;
             color: #ff4b8b;
@@ -331,6 +362,13 @@
             padding: 10px 0;
             position: relative;
         }
+        .history-product-item img {
+            width: 40px;
+            height: 40px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 1px solid #ffafbd;
+        }
         
         .history-product-item:last-child {
             border-bottom: none;
@@ -338,6 +376,12 @@
         
         .history-product-item strong {
             color: #4a2442;
+        }
+        
+        .history-notes {
+            font-style: italic;
+            margin-top: 10px;
+            color: #5a2d52;
         }
 
         .history-item .delete-btn {
@@ -348,24 +392,59 @@
         .history-item .delete-btn:hover {
             background: #ff4b4b;
         }
-
-        @media (min-width: 768px) {
-            body {
-                padding: 30px;
-            }
-
-            .container {
-                max-width: 700px;
-            }
-
-            h1 {
-                font-size: 2.2rem;
-            }
-
-            .tagline {
-                font-size: 1.1rem;
-            }
+        
+        .price {
+            font-weight: bold;
+            color: #ff4b8b;
+            margin-left: 10px;
         }
+        
+        /* Nuevo estilo para la galería de productos */
+        .product-gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            padding: 15px;
+        }
+
+        .product-card {
+            background-color: #fff5f7;
+            border: 2px solid #ffd1dc;
+            border-radius: 12px;
+            padding: 10px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+            flex: 1 1 150px;
+            max-width: 180px;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            border-color: #ff4b8b;
+        }
+        
+        .product-card.selected {
+            border-color: #ff4b8b;
+            box-shadow: 0 0 0 4px rgba(255, 75, 139, 0.3);
+        }
+
+        .product-card img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 8px;
+        }
+
+        .product-card p {
+            font-weight: bold;
+            color: #ff4b8b;
+            font-size: 1.1em;
+        }
+        /* Fin de los nuevos estilos */
     </style>
 </head>
 <body>
@@ -382,170 +461,228 @@
         </div>
 
         <div class="tab-content active" id="order-tab">
-            <h2>Armar Pedido</h2>
-
-            <div class="form-group">
-                <label for="main-product-type">Selecciona un producto:</label>
-                <select id="main-product-type">
-                    <option value="">Selecciona un tipo</option>
-                    <option value="fresas">Fresas con Crema</option>
-                    <option value="marranitas">Marranitas</option>
-                    <option value="tostaditas">Tostaditas</option>
-                    <option value="cheetos">Cheetos / Doritos</option>
-                </select>
-            </div>
-
-            <div id="fresas-ingredients" class="product-ingredients hidden">
-                <div class="form-group">
-                    <label for="fresas-subtype">Tipo de Fresas:</label>
-                    <select id="fresas-subtype">
-                        <option value="congeladas">Fresas con Crema Congeladas</option>
-                        <option value="naturales">Fresas con Crema Naturales</option>
-                        <option value="mixtas">Fresas Mixtas (Congeladas + Naturales)</option>
-                    </select>
+            <h2>Selecciona un producto</h2>
+            <div class="product-gallery">
+                <div class="product-card" data-product-type="fresas" data-image-url="https://imgur.com/5ip6gQi.jpg">
+                    <img src="https://imgur.com/5ip6gQi.jpg" alt="Fresas con Crema">
+                    <p>Fresas con Crema</p>
                 </div>
-                <h3>Complementos y Toppings</h3>
-                <div class="form-group">
-                    <label for="fresas-complement">Complemento:</label>
-                    <select id="fresas-complement">
-                        <option value="nada">Ninguno</option>
-                        <option value="oreo">Oreo</option>
-                        <option value="chips-ahoy">Chips Ahoy</option>
-                        <option value="canelitas">Canelitas</option>
-                        <option value="gansito">Gansito</option>
-                    </select>
+                <div class="product-card" data-product-type="marranitas" data-image-url="https://imgur.com/oQVT4IG.jpg">
+                    <img src="https://imgur.com/oQVT4IG.jpg" alt="Marranitas">
+                    <p>Marranitas</p>
                 </div>
-                <div class="form-group">
-                    <label for="fresas-topping">Topping:</label>
-                    <select id="fresas-topping">
-                        <option value="nada">Ninguno</option>
-                        <option value="chocolate">Chocolate líquido</option>
-                        <option value="cajeta">Cajeta</option>
-                        <option value="nutella">Nutella</option>
-                        <option value="caramelo">Caramelo</option>
-                        <option value="nuez">Nuez</option>
-                        <option value="almendra">Almendra</option>
-                        <option value="jarabe-fresa">Jarabe de fresa</option>
-                    </select>
+                <div class="product-card" data-product-type="tostaditas" data-image-url="https://imgur.com/fqScijg.jpg">
+                    <img src="https://imgur.com/fqScijg.jpg" alt="Tostaditas Preparadas">
+                    <p>Tostaditas</p>
                 </div>
-                <div class="checkbox-group">
-                    <input type="checkbox" id="fresas-whipped-cream">
-                    <label for="fresas-whipped-cream">Agregar Crema Batida</label>
+                <div class="product-card" data-product-type="cheetos" data-image-url="https://imgur.com/IYK52QY.jpg">
+                    <img src="https://imgur.com/IYK52QY.jpg" alt="Cheetos o Doritos">
+                    <p>Cheetos / Doritos</p>
+                </div>
+                <div class="product-card" data-product-type="cono" data-image-url="https://i.imgur.com/NhVmB0b.jpeg">
+                    <img src="https://i.imgur.com/NhVmB0b.jpeg" alt="Cono de Nieve">
+                    <p>Cono de Nieve</p>
                 </div>
             </div>
 
-            <div id="marranitas-ingredients" class="product-ingredients hidden">
-                <h3>Ingredientes para Marranitas</h3>
-                <div class="checkbox-group">
-                    <input type="checkbox" id="marranitas-cacahuate" checked>
-                    <label for="marranitas-cacahuate">Cacahuate</label>
+            <div id="ingredients-section">
+                <div id="fresas-ingredients" class="product-ingredients hidden">
+                    <div class="form-group">
+                        <label for="fresas-subtype">Tipo de Fresas:</label>
+                        <select id="fresas-subtype">
+                            <option value="congeladas">Fresas con Crema Congeladas</option>
+                            <option value="naturales">Fresas con Crema Naturales</option>
+                            <option value="mixtas">Fresas Mixtas</option>
+                        </select>
+                    </div>
+                    <h3>Complementos y Toppings</h3>
+                    <div class="form-group">
+                        <label for="fresas-complement">Complemento:</label>
+                        <select id="fresas-complement">
+                            <option value="nada">Ninguno</option>
+                            <option value="oreo">Oreo</option>
+                            <option value="chips-ahoy">Chips Ahoy</option>
+                            <option value="canelitas">Canelitas</option>
+                            <option value="gansito">Gansito</option>
+                            <option value="bubulubu">Bubulubu</option>
+                            <option value="chocoroles">Chocoroles</option>
+                            <option value="pinguinos">Pinguinos</option>
+                            <option value="nieve-chocolate">Nieve de Chocolate</option>
+                            <option value="kranky">Kranky</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="fresas-topping">Topping:</label>
+                        <select id="fresas-topping">
+                            <option value="nada">Ninguno</option>
+                            <option value="chocolate">Chocolate líquido</option>
+                            <option value="cajeta">Cajeta</option>
+                            <option value="nutella">Nutella</option>
+                            <option value="caramelo">Caramelo</option>
+                            <option value="nuez">Nuez</option>
+                            <option value="almendra">Almendra</option>
+                            <option value="jarabe-fresa">Jarabe de fresa</option>
+                            <option value="coco">Coco</option>
+                        </select>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="fresas-whipped-cream">
+                        <label for="fresas-whipped-cream">Agregar Crema Batida</label>
+                    </div>
                 </div>
-                <div class="checkbox-group">
-                    <input type="checkbox" id="marranitas-pepino" checked>
-                    <label for="marranitas-pepino">Pepino</label>
-                </div>
-                <div class="checkbox-group">
-                    <input type="checkbox" id="marranitas-tostaditas" checked>
-                    <label for="marranitas-tostaditas">Tostaditas</label>
-                </div>
-                <div class="checkbox-group">
-                    <input type="checkbox" id="marranitas-cueritos" checked>
-                    <label for="marranitas-cueritos">Cueritos</label>
-                </div>
-                <div class="checkbox-group">
-                    <input type="checkbox" id="marranitas-clamato" checked>
-                    <label for="marranitas-clamato">Clamato</label>
-                </div>
-                <div class="checkbox-group">
-                    <input type="checkbox" id="marranitas-tamarindo" checked>
-                    <label for="marranitas-tamarindo">Tamarindo</label>
-                </div>
-                <div class="checkbox-group">
-                    <input type="checkbox" id="marranitas-chamoy" checked>
-                    <label for="marranitas-chamoy">Chamoy</label>
-                </div>
-                <div class="checkbox-group">
-                    <input type="checkbox" id="marranitas-valentina" checked>
-                    <label for="marranitas-valentina">Salsa Valentina</label>
-                </div>
-                <div class="checkbox-group">
-                    <input type="checkbox" id="marranitas-soya" checked>
-                    <label for="marranitas-soya">Soya</label>
-                </div>
-                <div class="checkbox-group">
-                    <input type="checkbox" id="marranitas-limon" checked>
-                    <label for="marranitas-limon">Limón</label>
-                </div>
-            </div>
 
-            <div id="tostaditas-ingredients" class="product-ingredients hidden">
-                <h3>Ingredientes para Tostaditas</h3>
-                <div class="checkbox-group">
-                    <input type="checkbox" id="tostaditas-repollo" checked>
-                    <label for="tostaditas-repollo">Repollo</label>
+                <div id="marranitas-ingredients" class="product-ingredients hidden">
+                    <h3>Ingredientes para Marranitas</h3>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="marranitas-cacahuate" checked>
+                        <label for="marranitas-cacahuate">Cacahuate</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="marranitas-pepino" checked>
+                        <label for="marranitas-pepino">Pepino</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="marranitas-tostaditas" checked>
+                        <label for="marranitas-tostaditas">Tostaditas</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="marranitas-cueritos" checked>
+                        <label for="marranitas-cueritos">Cueritos</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="marranitas-clamato" checked>
+                        <label for="marranitas-clamato">Clamato</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="marranitas-tamarindo" checked>
+                        <label for="marranitas-tamarindo">Tamarindo</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="marranitas-chamoy" checked>
+                        <label for="marranitas-chamoy">Chamoy</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="marranitas-valentina" checked>
+                        <label for="marranitas-valentina">Salsa Valentina</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="marranitas-soya" checked>
+                        <label for="marranitas-soya">Soya</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="marranitas-limon" checked>
+                        <label for="marranitas-limon">Limón</label>
+                    </div>
                 </div>
-                <div class="checkbox-group">
-                    <input type="checkbox" id="tostaditas-cueritos" checked>
-                    <label for="tostaditas-cueritos">Cueritos</label>
-                </div>
-                <div class="checkbox-group">
-                    <input type="checkbox" id="tostaditas-tomate" checked>
-                    <label for="tostaditas-tomate">Tomate</label>
-                </div>
-                <div class="checkbox-group">
-                    <input type="checkbox" id="tostaditas-queso" checked>
-                    <label for="tostaditas-queso">Queso</label>
-                </div>
-                <div class="checkbox-group">
-                    <input type="checkbox" id="tostaditas-valentina" checked>
-                    <label for="tostaditas-valentina">Salsa Valentina</label>
-                </div>
-                <div class="checkbox-group">
-                    <input type="checkbox" id="tostaditas-crema" checked>
-                    <label for="tostaditas-crema">Crema</label>
-                </div>
-                <div class="checkbox-group">
-                    <input type="checkbox" id="tostaditas-limon" checked>
-                    <label for="tostaditas-limon">Limón</label>
-                </div>
-            </div>
 
-            <div id="cheetos-ingredients" class="product-ingredients hidden">
-                <div class="form-group">
-                    <label for="cheetos-type">Tipo de Cheeto / Dorito:</label>
-                    <select id="cheetos-type">
-                        <option value="cheetos-flamin">Cheetos Flamin</option>
-                        <option value="cheetos-flamin-limon">Cheetos Flamin Limón</option>
-                        <option value="cheetos-flamin-xxtra">Cheetos Flamin XXTRA</option>
-                        <option value="doritos">Doritos</option>
-                    </select>
+                <div id="tostaditas-ingredients" class="product-ingredients hidden">
+                    <h3>Ingredientes para Tostaditas</h3>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="tostaditas-repollo" checked>
+                        <label for="tostaditas-repollo">Repollo</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="tostaditas-cueritos" checked>
+                        <label for="tostaditas-cueritos">Cueritos</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="tostaditas-tomate" checked>
+                        <label for="tostaditas-tomate">Tomate</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="tostaditas-queso" checked>
+                        <label for="tostaditas-queso">Queso</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="tostaditas-valentina" checked>
+                        <label for="tostaditas-valentina">Salsa Valentina</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="tostaditas-crema" checked>
+                        <label for="tostaditas-crema">Crema</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="tostaditas-limon" checked>
+                        <label for="tostaditas-limon">Limón</label>
+                    </div>
                 </div>
-                <h3>Ingredientes para Cheetos / Doritos</h3>
-                <div class="checkbox-group">
-                    <input type="checkbox" id="cheetos-cueritos" checked>
-                    <label for="cheetos-cueritos">Cueritos</label>
-                </div>
-                <div class="checkbox-group">
-                    <input type="checkbox" id="cheetos-queso" checked>
-                    <label for="cheetos-queso">Queso</label>
-                </div>
-                <div class="checkbox-group">
-                    <input type="checkbox" id="cheetos-crema" checked>
-                    <label for="cheetos-crema">Crema</label>
-                </div>
-                <div class="checkbox-group">
-                    <input type="checkbox" id="cheetos-salsa" checked>
-                    <label for="cheetos-salsa">Salsa</label>
-                </div>
-                <div class="checkbox-group">
-                    <input type="checkbox" id="cheetos-jalapeno" checked>
-                    <label for="cheetos-jalapeno">Jalapeño</label>
-                </div>
-            </div>
 
-            <button id="add-to-cart" class="hidden">
-                <i class="fas fa-cart-plus"></i> Agregar al Carrito
-            </button>
+                <div id="cheetos-ingredients" class="product-ingredients hidden">
+                    <div class="form-group">
+                        <label for="cheetos-type">Tipo de Cheeto / Dorito:</label>
+                        <select id="cheetos-type">
+                            <option value="cheetos-flamin">Cheetos Flamin</option>
+                            <option value="cheetos-flamin-limon">Cheetos Flamin Limón</option>
+                            <option value="cheetos-flamin-xxtra">Cheetos Flamin XXTRA</option>
+                            <option value="doritos">Doritos</option>
+                        </select>
+                    </div>
+                    <h3>Ingredientes para Cheetos / Doritos</h3>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="cheetos-cueritos" checked>
+                        <label for="cheetos-cueritos">Cueritos</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="cheetos-queso" checked>
+                        <label for="cheetos-queso">Queso</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="cheetos-crema" checked>
+                        <label for="cheetos-crema">Crema</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="cheetos-salsa" checked>
+                        <label for="cheetos-salsa">Salsa</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="cheetos-jalapeno" checked>
+                        <label for="cheetos-jalapeno">Jalapeño</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="cheetos-repollo" checked>
+                        <label for="cheetos-repollo">Repollo</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="cheetos-tomate" checked>
+                        <label for="cheetos-tomate">Tomate</label>
+                    </div>
+                </div>
+
+                <div id="cono-ingredients" class="product-ingredients hidden">
+                    <div class="form-group">
+                        <label for="cono-type">Sabor de Nieve:</label>
+                        <select id="cono-type">
+                            <option value="chocolate">Chocolate</option>
+                            <option value="vainilla">Vainilla</option>
+                            <option value="fresa">Fresa</option>
+                            <option value="napolitano">Napolitano</option>
+                            <option value="fresa-vainilla">Fresa-Vainilla</option>
+                            <option value="cookies-cream">Cookies And Cream</option>
+                        </select>
+                    </div>
+                    <h3>Toppings</h3>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="cono-jarabe-fresa">
+                        <label for="cono-jarabe-fresa">Jarabe de Fresa</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="cono-chocolate-liquido">
+                        <label for="cono-chocolate-liquido">Chocolate Líquido</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="cono-cajeta">
+                        <label for="cono-cajeta">Cajeta</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="cono-caramelo">
+                        <label for="cono-caramelo">Caramelo</label>
+                    </div>
+                </div>
+
+                <button id="add-to-cart" class="hidden">
+                    <i class="fas fa-cart-plus"></i> Agregar al Carrito
+                </button>
+            </div>
         </div>
 
         <div class="tab-content" id="cart-tab">
@@ -555,7 +692,7 @@
             </ul>
 
             <div class="total-section">
-                Total de productos: <span id="cart-total">0</span>
+                Subtotal: <span id="cart-total">$0.00</span>
             </div>
 
             <button id="continue-to-confirm">
@@ -574,14 +711,16 @@
                 <div class="empty-order">No hay productos para confirmar</div>
             </div>
 
-            <div class="form-group">
-                <label for="notes">Notas adicionales:</label>
-                <textarea id="notes" placeholder="Notas especiales para el pedido" rows="3" style="width: 100%; padding: 15px; border-radius: 12px; border: 2px solid #ffd1dc;"></textarea>
-            </div>
+            <div id="confirm-controls" class="hidden">
+                <div class="form-group">
+                    <label for="notes">Notas adicionales:</label>
+                    <textarea id="notes" placeholder="Notas especiales para el pedido" rows="3" style="width: 100%; padding: 15px; border-radius: 12px; border: 2px solid #ffd1dc;"></textarea>
+                </div>
 
-            <button id="confirm-order">
-                <i class="fas fa-check"></i> Confirmar Pedido Completo
-            </button>
+                <button id="confirm-order">
+                    <i class="fas fa-check"></i> Confirmar Pedido Completo
+                </button>
+            </div>
 
             <div id="confirmation-message" class="confirmation">
                 <i class="fas fa-check-circle"></i>
@@ -606,14 +745,10 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const mainProductSelect = document.getElementById('main-product-type');
-            const fresasIngredients = document.getElementById('fresas-ingredients');
-            const marranitasIngredients = document.getElementById('marranitas-ingredients');
-            const tostaditasIngredients = document.getElementById('tostaditas-ingredients');
-            const cheetosIngredients = document.getElementById('cheetos-ingredients');
+            const productCards = document.querySelectorAll('.product-card');
+            const ingredientsSection = document.getElementById('ingredients-section');
             const addToCartBtn = document.getElementById('add-to-cart');
             const cartList = document.getElementById('cart-list');
-            const cartCount = document.getElementById('cart-count');
             const cartTotal = document.getElementById('cart-total');
             const clearCartBtn = document.getElementById('clear-cart');
             const continueToConfirmBtn = document.getElementById('continue-to-confirm');
@@ -625,9 +760,21 @@
             const downloadCsvBtn = document.getElementById('download-csv');
             const tabs = document.querySelectorAll('.tab');
             const tabContents = document.querySelectorAll('.tab-content');
+            const notesTextarea = document.getElementById('notes');
+            const confirmControls = document.getElementById('confirm-controls');
 
             let cart = [];
             const HISTORY_PIN = '2023';
+            let selectedProductType = null;
+            let selectedProductImage = null;
+
+            const PRODUCT_PRICES = {
+                'fresas': 60,
+                'marranitas': 50,
+                'tostaditas': 40,
+                'cheetos': 60,
+                'cono': 16
+            };
 
             loadHistory();
 
@@ -646,22 +793,32 @@
                 });
             });
 
-            mainProductSelect.addEventListener('change', function() {
-                const selectedProduct = this.value;
-                document.querySelectorAll('.product-ingredients').forEach(section => {
-                    section.classList.add('hidden');
-                });
-                if (selectedProduct) {
-                    document.getElementById(`${selectedProduct}-ingredients`).classList.remove('hidden');
+            productCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    productCards.forEach(c => c.classList.remove('selected'));
+                    this.classList.add('selected');
+                    
+                    selectedProductType = this.getAttribute('data-product-type');
+                    selectedProductImage = this.getAttribute('data-image-url');
+                    
+                    document.querySelectorAll('.product-ingredients').forEach(section => {
+                        section.classList.add('hidden');
+                    });
+                    
+                    document.getElementById(`${selectedProductType}-ingredients`).classList.remove('hidden');
                     addToCartBtn.classList.remove('hidden');
-                } else {
-                    addToCartBtn.classList.add('hidden');
-                }
+                });
             });
 
             addToCartBtn.addEventListener('click', function() {
-                const selectedProductType = mainProductSelect.value;
-                let product = { id: Date.now(), type: selectedProductType, ingredients: {} };
+                if (!selectedProductType) return;
+                let product = { 
+                    id: Date.now(), 
+                    type: selectedProductType, 
+                    price: PRODUCT_PRICES[selectedProductType],
+                    imageUrl: selectedProductImage,
+                    ingredients: {} 
+                };
 
                 switch (selectedProductType) {
                     case 'fresas':
@@ -704,14 +861,29 @@
                             queso: document.getElementById('cheetos-queso').checked,
                             crema: document.getElementById('cheetos-crema').checked,
                             salsa: document.getElementById('cheetos-salsa').checked,
-                            jalapeno: document.getElementById('cheetos-jalapeno').checked
+                            jalapeno: document.getElementById('cheetos-jalapeno').checked,
+                            repollo: document.getElementById('cheetos-repollo').checked,
+                            tomate: document.getElementById('cheetos-tomate').checked
+                        };
+                        break;
+                    case 'cono':
+                        product.ingredients = {
+                            subtype: document.getElementById('cono-type').value,
+                            jarabeFresa: document.getElementById('cono-jarabe-fresa').checked,
+                            chocolateLiquido: document.getElementById('cono-chocolate-liquido').checked,
+                            cajeta: document.getElementById('cono-cajeta').checked,
+                            caramelo: document.getElementById('cono-caramelo').checked,
                         };
                         break;
                 }
                 
                 cart.push(product);
                 updateCartDisplay();
-                mainProductSelect.value = '';
+                
+                // Reiniciar la selección
+                selectedProductType = null;
+                selectedProductImage = null;
+                productCards.forEach(c => c.classList.remove('selected'));
                 document.querySelectorAll('.product-ingredients').forEach(section => {
                     section.classList.add('hidden');
                 });
@@ -738,7 +910,8 @@
                     alert('El carrito está vacío. Agrega al menos un producto.');
                     return;
                 }
-                const notes = document.getElementById('notes').value;
+                
+                const notes = notesTextarea.value.trim();
                 let lastFolio = parseInt(localStorage.getItem('lastFolio') || 0);
                 const newFolio = `LF${String(lastFolio + 1).padStart(4, '0')}`;
                 localStorage.setItem('lastFolio', lastFolio + 1);
@@ -746,29 +919,29 @@
                 const now = new Date();
                 const dateTime = now.toLocaleString('es-MX', { dateStyle: 'short', timeStyle: 'short' });
                 
-                cart.forEach(product => {
-                    const historyItem = {
-                        id: product.id,
-                        folio: newFolio,
-                        date: dateTime,
-                        productType: product.type,
-                        ingredients: product.ingredients
-                    };
-                    history.push(historyItem);
-                });
-                
+                const combinedOrder = {
+                    id: Date.now(),
+                    folio: newFolio,
+                    date: dateTime,
+                    items: [...cart],
+                    notes: notes
+                };
+
+                history.push(combinedOrder);
                 localStorage.setItem('orderHistory', JSON.stringify(history));
+                
                 confirmationMessage.style.display = 'block';
-                confirmOrderBtn.style.display = 'none';
+                confirmControls.classList.add('hidden');
                 cart = [];
+                notesTextarea.value = '';
                 updateCartDisplay();
             });
 
             newOrderBtn.addEventListener('click', function() {
                 cart = [];
-                document.getElementById('notes').value = '';
+                notesTextarea.value = '';
                 confirmationMessage.style.display = 'none';
-                confirmOrderBtn.style.display = 'block';
+                confirmControls.classList.remove('hidden');
                 updateCartDisplay();
                 updateOrderSummary();
                 document.querySelector('[data-tab="order"]').click();
@@ -781,51 +954,65 @@
                     return;
                 }
                 let csvContent = "data:text/csv;charset=utf-8,";
-                csvContent += "Folio,Fecha-Hora,Producto,Subtipo,Ingredientes\n";
-                history.forEach(item => {
-                    let ingredientsString = '';
-                    const mainType = getTypeName(item.productType);
-                    let subtypeName = '';
-                    let ingredientsList = [];
-                    switch (item.productType) {
-                        case 'fresas':
-                            subtypeName = getFresasSubtypeNameForCSV(item.ingredients.subtype); // Usar nueva función para CSV
-                            if (item.ingredients.complement && item.ingredients.complement !== 'nada') ingredientsList.push(getFresasComplementName(item.ingredients.complement));
-                            if (item.ingredients.topping && item.ingredients.topping !== 'nada') ingredientsList.push(getFresasToppingName(item.ingredients.topping));
-                            if (item.ingredients.whippedCream) ingredientsList.push('Crema Batida');
-                            break;
-                        case 'marranitas':
-                            for (const key in item.ingredients) {
-                                if (item.ingredients[key]) {
-                                    ingredientsList.push(getMarranitasIngredientName(key));
+                csvContent += "Folio,Fecha-Hora,Producto,Subtipo,Ingredientes,Precio,Notas\n";
+                
+                history.forEach(order => {
+                    const notes = order.notes ? order.notes.replace(/"/g, '""') : '';
+                    order.items.forEach(item => {
+                        let ingredientsString = '';
+                        const mainType = getTypeName(item.type);
+                        let subtypeName = '';
+                        let ingredientsList = [];
+                        switch (item.type) {
+                            case 'fresas':
+                                subtypeName = getFresasSubtypeNameForCSV(item.ingredients.subtype);
+                                if (item.ingredients.complement && item.ingredients.complement !== 'nada') ingredientsList.push(getFresasComplementName(item.ingredients.complement));
+                                if (item.ingredients.topping && item.ingredients.topping !== 'nada') ingredientsList.push(getFresasToppingName(item.ingredients.topping));
+                                if (item.ingredients.whippedCream) ingredientsList.push('Crema Batida');
+                                break;
+                            case 'marranitas':
+                                for (const key in item.ingredients) {
+                                    if (item.ingredients[key]) {
+                                        ingredientsList.push(getMarranitasIngredientName(key));
+                                    }
                                 }
-                            }
-                            break;
-                        case 'tostaditas':
-                            for (const key in item.ingredients) {
-                                if (item.ingredients[key]) {
-                                    ingredientsList.push(getTostaditasIngredientName(key));
+                                break;
+                            case 'tostaditas':
+                                for (const key in item.ingredients) {
+                                    if (item.ingredients[key]) {
+                                        ingredientsList.push(getTostaditasIngredientName(key));
+                                    }
                                 }
-                            }
-                            break;
-                        case 'cheetos':
-                            subtypeName = getCheetosSubtypeName(item.ingredients.subtype);
-                            for (const key in item.ingredients) {
-                                if (key !== 'subtype' && item.ingredients[key]) {
-                                    ingredientsList.push(getCheetosIngredientName(key));
+                                break;
+                            case 'cheetos':
+                                subtypeName = getCheetosSubtypeName(item.ingredients.subtype);
+                                for (const key in item.ingredients) {
+                                    if (key !== 'subtype' && item.ingredients[key]) {
+                                        ingredientsList.push(getCheetosIngredientName(key));
+                                    }
                                 }
-                            }
-                            break;
-                    }
-                    ingredientsString = ingredientsList.length > 0 ? ingredientsList.join(' + ') : 'Ninguno';
-                    const row = [
-                        `"${item.folio}"`,
-                        `"${item.date}"`,
-                        `"${mainType}"`,
-                        `"${subtypeName}"`,
-                        `"${ingredientsString}"`
-                    ];
-                    csvContent += row.join(",") + "\n";
+                                break;
+                            case 'cono':
+                                subtypeName = getConoSubtypeName(item.ingredients.subtype);
+                                for (const key in item.ingredients) {
+                                    if (key !== 'subtype' && item.ingredients[key]) {
+                                        ingredientsList.push(getConoToppingName(key));
+                                    }
+                                }
+                                break;
+                        }
+                        ingredientsString = ingredientsList.length > 0 ? ingredientsList.join(' + ') : 'Ninguno';
+                        
+                        const row = [
+                            `"${order.folio}"`,
+                            `"${order.date}"`,
+                            `"${mainType}"`,
+                            `"${subtypeName}"`,
+                            `"${ingredientsString}"`,
+                            `"$${item.price.toFixed(2)}"`
+                        ];
+                        csvContent += row.join(",") + `,"${notes}"\n`;
+                    });
                 });
                 const encodedUri = encodeURI(csvContent);
                 const link = document.createElement("a");
@@ -840,6 +1027,7 @@
 
             function updateCartDisplay() {
                 cartList.innerHTML = '';
+                let total = 0;
                 if (cart.length === 0) {
                     const emptyItem = document.createElement('li');
                     emptyItem.className = 'order-item empty-order';
@@ -850,11 +1038,14 @@
                         const listItem = document.createElement('li');
                         listItem.className = 'order-item';
                         const productDisplayName = getProductDisplayName(product);
-                        const ingredientsDisplay = getIngredientsDisplay(product);
+                        const ingredientsDisplay = getIngredientsDisplayForSummary(product);
                         listItem.innerHTML = `
                             <button class="delete-btn" data-id="${product.id}"><i class="fas fa-times"></i></button>
-                            <div class="order-header">Producto: <strong>${productDisplayName}</strong></div>
-                            <div class="order-details">Ingredientes: <strong>${ingredientsDisplay}</strong></div>
+                            <img src="${product.imageUrl}" alt="${productDisplayName}">
+                            <div>
+                                <div class="order-header">Producto: <strong>${productDisplayName}</strong><span class="price">$${product.price.toFixed(2)}</span></div>
+                                <div class="order-details">Ingredientes: ${ingredientsDisplay}</div>
+                            </div>
                         `;
                         const deleteBtn = listItem.querySelector('.delete-btn');
                         deleteBtn.addEventListener('click', function() {
@@ -863,10 +1054,11 @@
                             updateCartDisplay();
                         });
                         cartList.appendChild(listItem);
+                        total += product.price;
                     });
                 }
-                cartCount.textContent = cart.length;
-                cartTotal.textContent = cart.length;
+                document.getElementById('cart-count').textContent = cart.length;
+                cartTotal.textContent = `$${total.toFixed(2)}`;
             }
 
             function updateOrderSummary() {
@@ -876,24 +1068,35 @@
                     emptyItem.className = 'empty-order';
                     emptyItem.textContent = 'No hay productos para confirmar';
                     orderSummary.appendChild(emptyItem);
+                    confirmControls.classList.add('hidden');
                 } else {
-                    const summaryList = document.createElement('div');
-                    cart.forEach((product, index) => {
+                    const confirmBox = document.createElement('div');
+                    confirmBox.id = 'confirm-summary-box';
+
+                    let total = 0;
+                    cart.forEach((product) => {
                         const productDisplayName = getProductDisplayName(product);
-                        const ingredientsDisplay = getIngredientsDisplayForSummary(product); // Nueva función para la confirmación
+                        const ingredientsDisplay = getIngredientsDisplayForSummary(product);
                         const itemDiv = document.createElement('div');
-                        itemDiv.className = 'summary-item';
+                        itemDiv.className = 'history-product-item';
                         itemDiv.innerHTML = `
-                            <div>${index + 1}. <strong>${productDisplayName}</strong></div>
-                            <div>${ingredientsDisplay ? `Ingredientes: ${ingredientsDisplay}` : ''}</div>
+                            <img src="${product.imageUrl}" alt="${productDisplayName}">
+                            <div>
+                                <div>Producto: <strong>${productDisplayName}</strong> <span class="price">$${product.price.toFixed(2)}</span><br>
+                                ${ingredientsDisplay || 'Sin ingredientes'}</div>
+                            </div>
                         `;
-                        summaryList.appendChild(itemDiv);
+                        confirmBox.appendChild(itemDiv);
+                        total += product.price;
                     });
+
                     const totalDiv = document.createElement('div');
-                    totalDiv.className = 'summary-total';
-                    totalDiv.innerHTML = `<div>Total de productos: ${cart.length}</div>`;
-                    orderSummary.appendChild(summaryList);
-                    orderSummary.appendChild(totalDiv);
+                    totalDiv.className = 'total-price';
+                    totalDiv.innerHTML = `Total a pagar: <span>$${total.toFixed(2)}</span>`;
+                    confirmBox.appendChild(totalDiv);
+                    
+                    orderSummary.appendChild(confirmBox);
+                    confirmControls.classList.remove('hidden');
                 }
             }
 
@@ -907,40 +1110,52 @@
                     historyList.appendChild(emptyItem);
                     downloadCsvBtn.style.display = 'none';
                 } else {
-                    const groupedHistory = history.reduce((acc, item) => {
-                        const { folio } = item;
-                        if (!acc[folio]) {
-                            acc[folio] = { folio, date: item.date, items: [] };
-                        }
-                        acc[folio].items.push(item);
-                        return acc;
-                    }, {});
-                    const sortedGroups = Object.values(groupedHistory).sort((a, b) => {
+                    const sortedOrders = history.sort((a, b) => {
                         const folioA = parseInt(a.folio.replace('LF', ''));
                         const folioB = parseInt(b.folio.replace('LF', ''));
                         return folioB - folioA;
                     });
-                    sortedGroups.forEach(group => {
+                    
+                    sortedOrders.forEach(order => {
                         const groupDiv = document.createElement('div');
                         groupDiv.className = 'history-group';
                         const headerDiv = document.createElement('div');
                         headerDiv.className = 'history-group-header';
                         headerDiv.innerHTML = `
-                            <div>Folio: <strong>${group.folio}</strong> (${group.date})</div>
+                            <div>Folio: <strong>${order.folio}</strong> (${order.date})</div>
+                            <button class="delete-btn" data-id="${order.id}"><i class="fas fa-trash"></i></button>
                         `;
                         groupDiv.appendChild(headerDiv);
-                        group.items.forEach(item => {
+
+                        let orderTotal = 0;
+                        order.items.forEach(item => {
                             const productDiv = document.createElement('div');
                             productDiv.className = 'history-product-item';
                             const productDisplayName = getProductDisplayName(item);
-                            const ingredientsDisplay = getIngredientsDisplayForHistory(item); // Nueva función para el historial
+                            const ingredientsDisplay = getIngredientsDisplayForHistory(item);
                             productDiv.innerHTML = `
-                                <button class="delete-btn" data-id="${item.id}"><i class="fas fa-trash"></i></button>
-                                <div>Producto: <strong>${productDisplayName}</strong><br>
-                                ${ingredientsDisplay || 'Sin ingredientes'}</div>
+                                <img src="${item.imageUrl}" alt="${productDisplayName}">
+                                <div>
+                                    <div>Producto: <strong>${productDisplayName}</strong> <span class="price">$${item.price.toFixed(2)}</span><br>
+                                    ${ingredientsDisplay || 'Sin ingredientes'}</div>
+                                </div>
                             `;
                             groupDiv.appendChild(productDiv);
+                            orderTotal += item.price;
                         });
+
+                        if (order.notes) {
+                            const notesDiv = document.createElement('div');
+                            notesDiv.className = 'history-notes';
+                            notesDiv.innerHTML = `<strong>Notas:</strong> ${order.notes}`;
+                            groupDiv.appendChild(notesDiv);
+                        }
+                        
+                        const totalDiv = document.createElement('div');
+                        totalDiv.className = 'total-price';
+                        totalDiv.innerHTML = `Total del pedido: <span>$${orderTotal.toFixed(2)}</span>`;
+                        groupDiv.appendChild(totalDiv);
+
                         historyList.appendChild(groupDiv);
                     });
                     downloadCsvBtn.style.display = 'block';
@@ -950,11 +1165,11 @@
             historyList.addEventListener('click', function(e) {
                 if (e.target.closest('.delete-btn')) {
                     const btn = e.target.closest('.delete-btn');
-                    const itemId = parseInt(btn.getAttribute('data-id'));
+                    const orderIdToDelete = parseInt(btn.getAttribute('data-id'));
                     const userPin = prompt('Por favor, ingresa el PIN para eliminar este pedido:');
                     if (userPin === HISTORY_PIN) {
                         let history = JSON.parse(localStorage.getItem('orderHistory')) || [];
-                        history = history.filter(item => item.id !== itemId);
+                        history = history.filter(order => order.id !== orderIdToDelete);
                         localStorage.setItem('orderHistory', JSON.stringify(history));
                         loadHistory();
                         alert('El pedido ha sido eliminado correctamente.');
@@ -968,52 +1183,15 @@
                 const productType = product.type || product.productType;
                 switch (productType) {
                     case 'fresas': 
-                        if (product.ingredients.subtype === 'mixtas') {
-                            return 'Fresas Mixtas'; // Nuevo texto para Fresas Mixtas
-                        }
                         return getFresasSubtypeName(product.ingredients.subtype);
                     case 'marranitas': return 'Marranitas';
                     case 'tostaditas': return 'Tostaditas';
                     case 'cheetos': return getCheetosSubtypeName(product.ingredients.subtype);
+                    case 'cono': return getConoSubtypeName(product.ingredients.subtype);
                     default: return '';
                 }
             }
 
-            // Función para el display de ingredientes en el Carrito
-            function getIngredientsDisplay(product) {
-                const productType = product.type || product.productType;
-                let ingredientsParts = [];
-
-                if (productType === 'fresas') {
-                    const complementName = product.ingredients.complement !== 'nada' ? getFresasComplementName(product.ingredients.complement) : '';
-                    const toppingName = product.ingredients.topping !== 'nada' ? getFresasToppingName(product.ingredients.topping) : '';
-
-                    if (complementName) ingredientsParts.push(`Complemento: <strong>${complementName}</strong>`);
-                    if (toppingName) ingredientsParts.push(`Topping: <strong>${toppingName}</strong>`); // Topping ya no está en negritas en la etiqueta, solo el valor
-                    if (product.ingredients.whippedCream) ingredientsParts.push('Con Crema Batida');
-                } else {
-                    const selectedIngredients = Object.keys(product.ingredients).filter(key => product.ingredients[key]);
-                    const ingredients = selectedIngredients.map(key => {
-                        switch (productType) {
-                            case 'marranitas': return getMarranitasIngredientName(key);
-                            case 'tostaditas': return getTostaditasIngredientName(key);
-                            case 'cheetos': 
-                                if (key !== 'subtype') {
-                                    return getCheetosIngredientName(key);
-                                }
-                                return null;
-                        }
-                    }).filter(Boolean);
-
-                    if (ingredients.length > 0) {
-                        ingredientsParts.push(`<strong>${ingredients.join(', ')}</strong>`);
-                    }
-                }
-                
-                return ingredientsParts.length > 0 ? ingredientsParts.join('<br>') : '<strong>Sin ingredientes</strong>';
-            }
-
-            // Nueva función para el display de ingredientes en la Confirmación
             function getIngredientsDisplayForSummary(product) {
                 const productType = product.type || product.productType;
                 let ingredientsParts = [];
@@ -1023,8 +1201,14 @@
                     const toppingName = product.ingredients.topping !== 'nada' ? getFresasToppingName(product.ingredients.topping) : '';
 
                     if (complementName) ingredientsParts.push(`Complemento: <strong>${complementName}</strong>`);
-                    if (toppingName) ingredientsParts.push(`Topping: <strong>${toppingName}</strong>`); // Topping ya no está en negritas en la etiqueta, solo el valor
+                    if (toppingName) ingredientsParts.push(`Topping: <strong>${toppingName}</strong>`);
                     if (product.ingredients.whippedCream) ingredientsParts.push('Con Crema Batida');
+                } else if (productType === 'cono') {
+                    const selectedToppings = Object.keys(product.ingredients).filter(key => key !== 'subtype' && product.ingredients[key]);
+                    if (selectedToppings.length > 0) {
+                        const toppingsNames = selectedToppings.map(getConoToppingName).join(', ');
+                        ingredientsParts.push(`Toppings: <strong>${toppingsNames}</strong>`);
+                    }
                 } else {
                     const selectedIngredients = Object.keys(product.ingredients).filter(key => product.ingredients[key]);
                     const ingredients = selectedIngredients.map(key => {
@@ -1047,7 +1231,6 @@
                 return ingredientsParts.length > 0 ? ingredientsParts.join('<br>') : '<strong>Sin ingredientes</strong>';
             }
 
-            // Nueva función para el display de ingredientes en el Historial
             function getIngredientsDisplayForHistory(product) {
                 const productType = product.type || product.productType;
                 let ingredientsParts = [];
@@ -1056,9 +1239,15 @@
                     const complementName = product.ingredients.complement !== 'nada' ? getFresasComplementName(product.ingredients.complement) : '';
                     const toppingName = product.ingredients.topping !== 'nada' ? getFresasToppingName(product.ingredients.topping) : '';
 
-                    if (complementName) ingredientsParts.push(`Complemento: <strong>${complementName}</strong>`); // Complemento sin negritas en la etiqueta
-                    if (toppingName) ingredientsParts.push(`Topping: <strong>${toppingName}</strong>`); // Topping sin negritas en la etiqueta
+                    if (complementName) ingredientsParts.push(`Complemento: <strong>${complementName}</strong>`);
+                    if (toppingName) ingredientsParts.push(`Topping: <strong>${toppingName}</strong>`);
                     if (product.ingredients.whippedCream) ingredientsParts.push('Con Crema Batida');
+                } else if (productType === 'cono') {
+                    const selectedToppings = Object.keys(product.ingredients).filter(key => key !== 'subtype' && product.ingredients[key]);
+                    if (selectedToppings.length > 0) {
+                        const toppingsNames = selectedToppings.map(getConoToppingName).join(', ');
+                        ingredientsParts.push(`Ingredientes: <strong>${toppingsNames}</strong>`);
+                    }
                 } else {
                     const selectedIngredients = Object.keys(product.ingredients).filter(key => product.ingredients[key]);
                     const ingredients = selectedIngredients.map(key => {
@@ -1087,6 +1276,7 @@
                     case 'marranitas': return 'Marranitas';
                     case 'tostaditas': return 'Tostaditas';
                     case 'cheetos': return 'Cheetos / Doritos';
+                    case 'cono': return 'Cono de Nieve';
                     default: return '';
                 }
             }
@@ -1095,7 +1285,7 @@
                 switch(subtype) {
                     case 'congeladas': return 'Fresas con Crema Congeladas';
                     case 'naturales': return 'Fresas con Crema Naturales';
-                    case 'mixtas': return 'Fresas Mixtas'; // Texto simplificado
+                    case 'mixtas': return 'Fresas Mixtas';
                     default: return '';
                 }
             }
@@ -1104,7 +1294,7 @@
                 switch(subtype) {
                     case 'congeladas': return 'Fresas con Crema Congeladas';
                     case 'naturales': return 'Fresas con Crema Naturales';
-                    case 'mixtas': return 'Fresas Mixtas (Congeladas + Naturales)'; // Mantener el detalle para CSV
+                    case 'mixtas': return 'Fresas Mixtas';
                     default: return '';
                 }
             }
@@ -1115,6 +1305,11 @@
                     case 'chips-ahoy': return 'Chips Ahoy';
                     case 'canelitas': return 'Canelitas';
                     case 'gansito': return 'Gansito';
+                    case 'bubulubu': return 'Bubulubu';
+                    case 'chocoroles': return 'Chocoroles';
+                    case 'pinguinos': return 'Pinguinos';
+                    case 'nieve-chocolate': return 'Nieve de Chocolate';
+                    case 'kranky': return 'Kranky';
                     default: return '';
                 }
             }
@@ -1128,6 +1323,7 @@
                     case 'nuez': return 'Nuez';
                     case 'almendra': return 'Almendra';
                     case 'jarabe-fresa': return 'Jarabe de fresa';
+                    case 'coco': return 'Coco';
                     default: return '';
                 }
             }
@@ -1161,7 +1357,30 @@
 
             function getCheetosIngredientName(key) {
                 const names = {
-                    cueritos: 'Cueritos', queso: 'Queso', crema: 'Crema', salsa: 'Salsa', jalapeno: 'Jalapeño'
+                    cueritos: 'Cueritos', queso: 'Queso', crema: 'Crema', salsa: 'Salsa', jalapeno: 'Jalapeño',
+                    repollo: 'Repollo', tomate: 'Tomate'
+                };
+                return names[key] || '';
+            }
+            
+            function getConoSubtypeName(subtype) {
+                const names = {
+                    'chocolate': 'Cono de Chocolate',
+                    'vainilla': 'Cono de Vainilla',
+                    'fresa': 'Cono de Fresa',
+                    'napolitano': 'Cono Napolitano',
+                    'fresa-vainilla': 'Cono de Fresa-Vainilla',
+                    'cookies-cream': 'Cono de Cookies And Cream'
+                };
+                return names[subtype] || '';
+            }
+
+            function getConoToppingName(key) {
+                const names = {
+                    'jarabeFresa': 'Jarabe de Fresa',
+                    'chocolateLiquido': 'Chocolate Líquido',
+                    'cajeta': 'Cajeta',
+                    'caramelo': 'Caramelo'
                 };
                 return names[key] || '';
             }
